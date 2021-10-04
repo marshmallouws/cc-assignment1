@@ -1,0 +1,61 @@
+Compiler opg 1:
+- Man kan ikke bare lave et minus, da float er definineret som at kunne være et negativt tal. Når den lekser det, vil den altid tage den længste præfiks, og derfor vil der stå n, -1 frem for n, -, 1
+Dette kan løses i parseren. 
+
+Opg 2:
+
+
+command : x=ID '=' e=expr ';'	        # Assignment
+| 'output' e=expr ';'                   # Output
+| 'while' '('c=condition')' p=program   # WhileLoop
+| if-statement                          # IfStatement
+;
+
+expr	: e1=expr op=('+'|'-') e2=expr # Addition
+	| e1=expr op=('*'|'/') e2=expr # Multiplication
+	| c=FLOAT     	      # Constant
+	| x=ID		      # Variable
+	| '(' e=expr ')'      # Parenthesis
+	;
+
+program : c=command | "{" cs+=command* "}"
+
+ID    : ALPHA (ALPHA|NUM)* ;
+ALPHA : [a-zA-Z_ÆØÅæøå] ;
+NUM   : [0-9] ;
+
+
+Conditional branching:
+    if-statement : "if" "(" condition ")"  program ["else" program]
+
+    condition : e1=expr COMPARISION-OPS e2=expr [BOOLEAN-CONNECTIVITIES condition]
+
+    COMPARISON-OPS : "==" | "!=" | ">=" | "<=" | "<" | ">"
+
+    BOOLEAN-CONNECTIVITIES : "&&" | "||" | "!"
+
+
+    ex: x = 0;
+
+        if(1+3 == 2+2) {
+            x = 1;
+        } else {
+            x = 2;
+        }
+    
+
+For-loops
+    for-loop : "for" "(" ID "=" (ID | NUM+) ".." (ID | NUM+) ")" program
+
+    ex: x = 2;
+        y = 4;
+        for(x..y) {
+            a = 1;            
+        }
+
+Arrays
+    array : ID "[" (ID | NUM+) "]"
+
+    ex: arr[4]
+
+  

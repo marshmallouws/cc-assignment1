@@ -1,0 +1,16 @@
+# Ignore everything
+*
+
+# But these files 
+!.gitignore
+!*a1.pdf
+!*.txt
+!*impl.g4
+!*Makefile
+!*main.java
+!*Environment.java
+!*AST.java
+
+
+# Subdirectories
+!*/

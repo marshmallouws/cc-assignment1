@@ -1,0 +1,36 @@
+Conditional branching like if (x==0 || y<z) then z=1;
+where conditions can contain comparison of expressions (equal, smaller,...), and Boolean connectives
+(and, or, not). You can also implement an optional else-clause if you like.
+
+For-loops of the form for(i=2..n) where we limit the flexibility of the for loop as compared to
+languages like Java and C++ where where can make more complex conditions and updates: here
+we simply specify two expression that denote the minimum (in the example 2) and maximum (here
+n) value of the variable of the for loop. If you like you can instead implement a more Java/C++
+style syntax.
+
+Arrays of the form a[e] where a is the name of the array and e is the index in the array to read
+or write. (We do not consider any complicated arrays like multi-dimensional arrays or arrays of
+arrays.)
+
+
+
+if-statement: "if" "(" condition ")" "{" consequence "}" ["else" "{" consequence "}"]
+
+consequence: c=command               # SingleCommand
+	| '{' cs+=command* '}'           # MultipleCommands
+	;
+
+condition: expr COMPARISON_OPR expr [BOOLEAN_OPR condition]
+
+for-loop: "for" "(" loop-stuff ")" "{" consequence "}"
+
+loop-stuff: index=ID "=" start=(ID|NUM+) ".." end=(ID|NUM+)
+
+array: ID "[" (ID|NUM+) "]"
+
+COMPARISON_OPR: "==" || ">=" || "<=" || ">" || "<" || "!="
+BOOLEAN_OPR: "||" || "&&"
+
+ID    : ALPHA (ALPHA|NUM)* ;
+ALPHA : [a-zA-Z_ÆØÅæøå] ;
+NUM   : [0-9] ;
